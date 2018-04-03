@@ -91,8 +91,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currLocation : CLLocation!;
         currLocation = locations.last! as CLLocation;
-        // 解码具体地址待测试
-        // self.reverseGeoCode(sender: currLocation, currentLocation: currLocation);
+        // 解码具体地址已测试，待修改
+        self.reverseGeoCode(sender: currLocation, currentLocation: currLocation);
         print("经度=\(currLocation.coordinate.longitude)");
         print("纬度=\(currLocation.coordinate.latitude)");
     }
@@ -114,10 +114,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                         print("Placemark is Empty!");
                         return;
                 }
-                let arrayForProvince : [String] = (point!.name?.components(separatedBy: ("省")))!;
-                let city : String = arrayForProvince.last!;
-                let arrayForCity : [String] = (city.components(separatedBy: ("市")));
-                self.title = arrayForCity.first!;
+                // let arrayForProvince : [String] = (point!.name?.components(separatedBy: ("省")))!;
+                // let city : String = arrayForProvince.last!;
+                // let arrayForCity : [String] = (city.components(separatedBy: ("市")));
+                // self.title = arrayForCity.first!;
+                // print("省=\(arrayForProvince.first!)");
+                // print("市=\(arrayForCity.first!)");
+                for placemark in placemarks! {
+                    print(placemark.name!);
+                }
             } else {
                 print("No placemarks!");
             }
