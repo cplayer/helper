@@ -73,19 +73,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             let restaurantAnnotation = MKPointAnnotation();
             restaurantAnnotation.coordinate = coordinate;
             restaurantAnnotation.title = "\(title)";
-            // self.mapView?.addAnnotation(restaurantAnnotation);
+            self.mapView?.addAnnotation(restaurantAnnotation);
             let circle = MKCircle(center: coordinate, radius: regionRadius);
             self.mapView?.add(circle);
-            // self.mapView?.showAnnotations([restaurantAnnotation], animated: true);
+            self.mapView?.showAnnotations([restaurantAnnotation], animated: true);
         } else {
             print("Can not track region");
+        }
+        
+        // 增加获取经纬度代码
+        locationManager.requestWhenInUseAuthorization();
+        if (CLLocationManager.locationServicesEnabled()) {
+            locationManager.startUpdatingLocation();
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currLocation : CLLocation!;
         currLocation = locations.last! as CLLocation;
-        self.reverseGeoCode(sender: currLocation, currentLocation: currLocation);
+        // 解码具体地址待测试
+        // self.reverseGeoCode(sender: currLocation, currentLocation: currLocation);
+        print("经度=\(currLocation.coordinate.longitude)");
+        print("纬度=\(currLocation.coordinate.latitude)");
     }
     
     func reverseGeoCode(sender: AnyObject, currentLocation: CLLocation) {
